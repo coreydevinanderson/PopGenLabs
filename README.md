@@ -10,6 +10,9 @@ The initial seed for this repository is my most popular population genetics lab,
 Repository manager:
 
 Corey Devin Anderson
+
 Associate Professor of Biology
+
 Valdosta State University
+
 coreanderson@valdosta.edu
