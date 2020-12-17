@@ -1,0 +1,237 @@
+### Companion R code for MM_driftlab1
+
+# There are currently three functions:
+# 1) mm_sampler()
+# 2) winner_winner()
+# 3) plot_mm()
+
+# The two main functions are: mm_sampler() and plot_mm()
+
+
+## (1) mm_sampler() ##
+
+# DESCRIPTION: simulate M&M allele drift, until fixation of one allele/color.
+
+# RETURNS: a character vector of length one containing the initial of the last remaining color.
+# REQUIRES: a vector of M&M colors as single letter characters for the five colors (excluding brown: 
+#           "r", "o", "y", "g", "b"). There must be 20 characters total. The default is to have each 
+#           color at a relative frequency of 0.2.
+
+# ARGUMENTS:
+#
+# MM1 : the vector of M&M colors as characters [default = rep(c("r", "o", "y", "b", "g"), 4)]
+# print_gens : logical flag determining whether to print the table after each generation of drift.      
+
+
+# START
+mm_sampler <- function(MM1 = rep(c("r", "o", "y", "b", "g"), 4), print_gens = TRUE){
+
+  table(MM1)
+  gens <- 0
+
+  repeat{
+	  grab_10 <- sample(MM1, 10, replace = FALSE)
+	  samp_table <- table(grab_10)
+	  MM2 <- c()
+	  gens <- gens + 1
+
+	  for (i in 1:length(samp_table)){
+		  MM2 <- append(MM2, rep(names(samp_table)[i], 2 * samp_table[i]))
+	  }
+
+	  samp_table2 <- table(MM2)
+
+	  if (print_gens == TRUE){
+          print(samp_table2)
+	  }
+
+        trigger <- sum(samp_table2 > 0)
+	
+	  if (trigger == 1){
+		if (print_gens == TRUE){
+		  cat("It took ", gens, " generations for fixation to occur.", "\n", sep = "")
+		  cat("The remaining color was: ", "\n", sep = "")
+            }
+	    break
+	  }
+
+	  MM1 <- MM2
+  }
+return(names(samp_table2))
+}
+# END
+
+# Example calls
+# Call once you have run code from START to END
+mm_sampler()  
+mm_sampler(print_gens = FALSE)
+
+
+
+## (2) winner_winner() ##
+
+# DESCRIPTION: repeats the M&MN simulation x times. This simulation is mainly useful in demonstrating
+#              that drift is random. The observed counts should be ~ uniform across colors. You can
+#              have the students use chisq.test() to test the null of uniformity based on the observed #              and expected counts.
+
+# RETURNS: a table of counts indicating which allele remained after each simulation.
+
+# ARGUMENTS:
+#
+# x : the number of simulations.     
+
+
+# START 
+winner_winner <- function(x){
+
+  win_col <- numeric(x)
+  for (i in 1:x){
+    win_col[i] <- mm_sampler(print_gens = FALSE)
+  }
+
+return(table(win_col))
+}
+# End
+
+
+# Example calls
+# Call once you have run code from START to END
+winner_winner(100) # Run this 
+winner_winner(1000)
+winner_winner(10000)
+
+
+
+## (3) plot_mm() ##
+
+# DESCRIPTION: Creates a color line plot of the M&M drift simulation.
+
+# RETURNS: a line plot of the simulation through time.
+# REQUIRES: no input (the conditions are based on the initial parameters in the wet lab)
+
+# ARGUMENTS: none.
+
+# START
+plot_mm <- function(){
+
+  # Set original count for each color
+  red <- 4
+  yellow <- 4
+  blue <- 4
+  green <- 4
+  orange <- 4
+
+  MM1 <- rep(c("r", "o", "y", "b", "g"), 4)
+
+  repeat{
+
+    # Sample 10 M&Ms from the bag of 20
+    grab_10 <- sample(MM1, 10, replace = FALSE)
+    samp_table <- table(grab_10)
+    MM2 <- c()
+
+    # Double the count of each M&M and create vector of M&M colors
+    for (i in 1:length(samp_table)){
+      MM2 <- append(MM2, rep(names(samp_table)[i], 2 * samp_table[i]))
+    }
+
+    # Table the vector to get the counts
+    samp_table2 <- table(MM2); print(samp_table2)
+
+    # Add color count to count vector for each M&M color	
+    for (i in 1:length(names(samp_table2))){
+      if (names(samp_table2)[i] == "b"){
+        blue <- append(blue, unname(samp_table2[i]))
+      } else if (names(samp_table2)[i] == "g"){
+        green <- append(green, unname(samp_table2[i]))
+      } else if (names(samp_table2)[i] == "o"){
+        orange <- append(orange, unname(samp_table2[i]))
+      } else if (names(samp_table2)[i] == "r"){
+        red <- append(red, unname(samp_table2[i]))
+	} else if(names(samp_table2)[i] == "y"){
+	  yellow <- append(yellow, unname(samp_table2[i]))
+      }
+    }
+
+    # Determine how many colors are left in the table	
+    trigger <- sum(samp_table2 > 0)
+
+    # If only one color is left, break out of the loop	
+    if (trigger == 1){
+      final_table <- samp_table2
+      break
+    }
+
+    # Use remaing M&Ms as the source for the next round of sampling
+    MM1 <- MM2
+
+  }
+
+  # Convert vector of counts to vector of relative frequencies
+  rf_blue <- blue / 20
+  rf_green <- green / 20
+  rf_orange <- orange / 20
+  rf_red <- red / 20
+  rf_yellow <- yellow / 20
+
+  # In order to plot each color on the same scatter plot they must be the same length.
+  # The first step to figure out how long each relative frequency vector is...
+  # ...which represents how many generations the color persisted in the "gene pool".
+
+  if (names(final_table) == "b"){
+    final_length <- length(rf_blue)
+  } else if (names(final_table) == "g"){
+    final_length <- length(rf_green)
+  } else if (names(final_table) == "o"){
+    final_length <- length(rf_orange)
+  } else if (names(final_table) == "r"){
+    final_length <- length(rf_red)
+  } else {
+    final_length <- length(rf_yellow)
+  }
+
+  # Write helper function to pad short vectors with zeroes
+  add_zeroes <- function(x, y){    
+    if (x[length(x)] != 1.0){
+      x <- append(x, rep(0, y - length(x)))
+    }
+  return(x)
+  }
+
+  rf_blue <- add_zeroes(rf_blue, final_length)
+  rf_green <- add_zeroes(rf_green, final_length)
+  rf_orange <- add_zeroes(rf_orange, final_length)
+  rf_red <- add_zeroes(rf_red, final_length)
+  rf_yellow <- add_zeroes(rf_yellow, final_length)
+
+  col_mat <- data.frame(blue = rf_blue, 
+                        green = rf_green, 
+                        orange = rf_orange, 
+                        red = rf_red, 
+                        yellow = rf_yellow)
+
+  col_lookup <- c(b = "Blue", g = "Green", o = "Orange", r = "Red", y = "Yellow")
+  final_name <- col_lookup[names(final_table)]
+
+  mm_colors <- c("blue", "green3", "orange2", "red", "yellow3")
+
+  matplot(col_mat, 
+          type = "l", 
+          col = mm_colors, 
+          pch = "", 
+          main = paste(final_name,
+                       " wins: it took ", 
+                       final_length, 
+                       " generations to reach fixation.", 
+                       sep = ""), 
+          xlab = list("Generations", cex = 1.2),
+          ylab = list("Relative frequency", cex = 1.2))
+
+  paste("Number of generations =", final_length)
+}
+# END
+
+
+# Example calls
+# Call once you have run code from START to END
+plot_mm() # repeat to see variation in outcome
