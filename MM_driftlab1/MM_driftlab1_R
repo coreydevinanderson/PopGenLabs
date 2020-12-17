@@ -1,5 +1,8 @@
 ### Companion R code for MM_driftlab1
 
+# Author: Corey Devin Anderson
+# Contact: coreandeson@valdosta.edu
+
 # There are currently three functions:
 # 1) mm_sampler()
 # 2) winner_winner()
