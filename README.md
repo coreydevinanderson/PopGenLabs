@@ -8,15 +8,15 @@ The students start with 20 M&Ms, four for each of the five colors chosen (let th
 
 Procedure:
 
-Sample of 10 from bag of 20
+# Sample of 10 from bag of 20
 2-Blue (0.2), 1-Green (0.1), 3-Orange (0.3), 2-Yellow (0.2), 2-Red (0.2) ->
 
-Pour unsampled 10 into dead pool.
+# Pour unsampled 10 into dead pool.
 
-Repopulate brown bag at count of 20, based on relative frequency out of 10 (above):
+# Repopulate brown bag at count of 20, based on relative frequency out of 10 (above):
  4-Blue (0.2), 2-Green (0.1), 6-Orange (0.3), 4-Yellow (0.2), 4-Red (0.2)
 
-Repeat up to 20 generations, or until only one color is left.
+# Repeat up to 20 generations, or until only one color is left.
 
 In the most basic form of the lab, just have them keep track of which generation they are on.
 
