@@ -4,7 +4,7 @@
 
 The lab is a demonstration of genetic drift, focusing on how drift results in a loss of genetic variation each generation through time; eventually only one allele (M&M color) will remain due to sampling error alone.
 
-The students start with 20 M&Ms, four for each of the five colors chosen (let them eat one color). They sample 10 M&Ms from the brown bag of 20 M&Ms. They spill out what was not sampled into a side pool. They then repopulate the bag back up to a count of 20 M&Ms, based on their relative frequencies for the sample of 10. For example, if 2 of 10 were Blue, then 4 get returned to the bag; if their was one Red, two "Red" would be returned to the bag.
+The students start with 20 M&Ms, four for each of the five colors chosen (let them eat one color). They sample 10 M&Ms from the brown bag of 20 M&Ms. They spill out what was not sampled into a side pool. They then repopulate the bag back up to a count of 20 M&Ms, based on their relative frequencies for the sample of 10. For example, if 2 of 10 were Blue, then 4 get returned to the brown bag for the next generation of sampling; if their was one Red, two "Red" would be returned to the brown bag. The easiest solution for them is to just double the counts when re-populating.
 
 Procedure:
 
