@@ -8,15 +8,11 @@ The students start with 20 M&Ms, four for each of the five colors chosen (let th
 
 Procedure:
 
-* Sample 10 from bag of 20; example sample: 
- 
- 2-Blue (0.2), 1-Green (0.1), 3-Orange (0.3), 2-Yellow (0.2), 2-Red (0.2) -> 
+* Sample 10 from bag of 20; example sample: 2-Blue (0.2), 1-Green (0.1), 3-Orange (0.3), 2-Yellow (0.2), 2-Red (0.2) -> 
 
 * Pour unsampled 10 into "slush pile." 
 
-* Repopulate brown bag at count of 20, based on relative frequency out of 10 (above). Based on the sample from step 1 (above):
-  
-  4-Blue (0.2), 2-Green (0.1), 6-Orange (0.3), 4-Yellow (0.2), 4-Red (0.2)
+* Repopulate brown bag at count of 20, based on relative frequency out of 10 (above). Based on the sample from step 1 (above): 4-Blue (0.2), 2-Green (0.1), 6-Orange (0.3), 4-Yellow (0.2), 4-Red (0.2)
 
 * Repeat up to 20 generations, or until only one color is left. 
 
