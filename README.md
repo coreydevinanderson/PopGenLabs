@@ -11,7 +11,7 @@ There are currently two labs in the repository.
 
 * The R code for the microsatellite DNA lab was written to replace functionality from other, now defunct, software (from the Excel Microsatellite DNA toolkit and FSTAT). The code is designed to read in uDNA data (in diploid two-column format) and to do basic summaries of allele and genotype frequencies, as well as calculations of the system of mating inbreeding coefficient, including significance testing (via permutation). There are several example data sets in the resources folder.
 
-Each lab has its on README with further details.
+Each lab has its own README with further details.
 
 
 ---
